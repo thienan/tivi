@@ -80,9 +80,8 @@ class AppModule {
 
     @Provides
     fun provideAppManagers(
-            leakCanaryManager: LeakCanaryManager,
             timberManager: TimberManager,
             threeTenManager: ThreeTenBpManager): AppManagers {
-        return AppManagers(leakCanaryManager, timberManager, threeTenManager)
+        return AppManagers(timberManager, threeTenManager)
     }
 }
