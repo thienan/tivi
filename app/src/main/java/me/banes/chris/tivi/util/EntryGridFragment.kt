@@ -58,11 +58,9 @@ abstract class EntryGridFragment<LI : ListItem<out Entry>, VM : EntryViewModel<L
         grid_recyclerview.apply {
             adapter = this@EntryGridFragment.adapter
             addItemDecoration(SpacingItemDecorator(paddingLeft))
-            addOnScrollListener(EndlessRecyclerViewScrollListener(
-                    grid_recyclerview.layoutManager, { _: Int, _: RecyclerView ->
-                if (userVisibleHint) viewModel.onListScrolledToEnd()
-            }))
         }
+
+        button_loadmore.setOnClickListener { viewModel.onListScrolledToEnd() }
 
         grid_swipe_refresh.setOnRefreshListener { viewModel.fullRefresh() }
     }

@@ -22,8 +22,8 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
-import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
+import android.view.View
 import com.crashlytics.android.Crashlytics
 import com.crashlytics.android.core.CrashlyticsCore
 import io.fabric.sdk.android.Fabric
@@ -36,7 +36,6 @@ import me.banes.chris.tivi.data.entities.TiviShow
 import me.banes.chris.tivi.home.HomeActivityViewModel.NavigationItem.DISCOVER
 import me.banes.chris.tivi.home.HomeActivityViewModel.NavigationItem.LIBRARY
 import me.banes.chris.tivi.home.discover.DiscoverFragment
-import me.banes.chris.tivi.home.library.LibraryFragment
 import me.banes.chris.tivi.home.popular.PopularShowsFragment
 import me.banes.chris.tivi.home.trending.TrendingShowsFragment
 import me.banes.chris.tivi.home.watched.WatchedShowsFragment
@@ -63,6 +62,8 @@ class HomeActivity : TiviActivity() {
 
         viewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(HomeActivityViewModel::class.java)
+
+        home_bottom_nav.visibility = View.GONE
 
         home_bottom_nav.setOnNavigationItemSelectedListener {
             when (it.itemId) {
@@ -105,19 +106,8 @@ class HomeActivity : TiviActivity() {
     }
 
     private fun showNavigationItem(item: HomeActivityViewModel.NavigationItem) {
-        val newFragment: Fragment
-        val newItemId: Int
-
-        when (item) {
-            DISCOVER -> {
-                newFragment = DiscoverFragment()
-                newItemId = R.id.home_nav_discover
-            }
-            LIBRARY -> {
-                newFragment = LibraryFragment()
-                newItemId = R.id.home_nav_collection
-            }
-        }
+        val newFragment = TrendingShowsFragment()
+        val newItemId = R.id.home_nav_discover
 
         supportFragmentManager
                 .beginTransaction()
