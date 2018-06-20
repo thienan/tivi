@@ -120,3 +120,8 @@
 -keepclassmembernames class kotlinx.** {
     volatile <fields>;
 }
+
+# Moshi
+-keepclasseswithmembers class * {
+    @com.squareup.moshi.* <methods>;
+}
